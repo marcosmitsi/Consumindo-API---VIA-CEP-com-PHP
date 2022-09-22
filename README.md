@@ -1,5 +1,5 @@
 # Consumindo-API---VIA-CEP-com-PHP
->Status do Projeto Em desenvolvimento.
+>Status do Projeto: Finalizado.
 
 >
 ```
