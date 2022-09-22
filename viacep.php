@@ -1,45 +1,60 @@
 <?php
 
-$address = (object)[
-    'cep' => '',
-    'logradouro' => '',
-    'bairro' => '',
-    'localidade' => '',
-    'uf' => ''
-];
-
-if (isset($_POST['cep'])) {
-    $cep = $_POST['cep'];
-
-    //limpar caracteres indesejados no input cep Usando expressão regular
-    $cep = preg_replace('/[^0-9]/', '', $cep);
-
-    //verificando se o cep é válido Usando expressão regular.
-
-    if (preg_match('/^[0-9]{5}-?[0-9]{3}$/', $cep)) {
-
-        $url = "https://viacep.com.br/ws/{$cep}/json/";
+function getAdress()
+{
+    
+    if (isset($_POST['cep'])) {
+        $cep = $_POST['cep'];
 
 
-        //variável traz os dados como string
-        /*
-        $address = file_get_contents($url);
-        */
+        $cep = filterCep($cep);
 
-        //transformar a variável em array associativo
-        /*
-        $address = json_decode(file_get_contents($url), true);
-        */
 
-        //transformar a variável em obj
-        $address = json_decode(file_get_contents($url));
 
-        /*
-        echo '<pre>';
-        var_dump($address);
-        echo '</pre>';
-        */
-    } else {
-        $address->cep = 'CEP Inválido';
+        if (isCep($cep)) {
+
+            $address = getAddressViaCep($cep);
+           // var_dump($address);
+           if(property_exists($address,'erro')){
+            $address = addressEmpty();
+            $address->cep = 'CEP não Encontrado';
+           }
+        } else {
+            $address = addressEmpty();
+            $address->cep = 'CEP Inválido';
+        }
+    }else{
+        $address = addressEmpty();
     }
+    return $address;
+}
+
+function getAddressViaCep(String $cep)
+{
+
+    $url = "https://viacep.com.br/ws/{$cep}/json/";
+    //transformar a variável em obj
+    return json_decode(file_get_contents($url));
+}
+
+function isCep(String $cep): bool
+{
+    //verificando se o cep é válido Usando expressão regular.
+    return preg_match('/^[0-9]{5}-?[0-9]{3}$/', $cep);
+}
+function filterCep(String $cep): String
+{
+    //limpar caracteres indesejados no input cep Usando expressão regular
+    return preg_replace('/[^0-9]/', '', $cep);
+}
+
+function addressEmpty(){
+    return (object)[
+        'cep' => '',
+        'logradouro' => '',
+        'bairro' => '',
+        'localidade' => '',
+        'uf' => ''
+    ];
+
 }
