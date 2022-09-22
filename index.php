@@ -1,5 +1,5 @@
 <?php
-include_once('viacep.php');
+include_once('assets/functions/viacep.php');
 $address = getAdress();
 
 ?>
@@ -81,7 +81,18 @@ $address = getAdress();
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
         -->
-  
+  <!-- Formatando o input ao digitar "mascára do CEP"
+  <script src="assets/js/cleave.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js" integrity="sha512-KaIyHb30iXTXfGyI9cyKFUIRSSuekJt6/vqXtyQKhQP6ozZEGY8nOtRS6fExqE4+RbYHus2yGyYg1BrqxzV6YA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    new Cleave ('#buscaCep',
+    {
+      blocks:[5,3],
+      delimiters:['-'],
+      numericOnly:true
+    })
+  </script>
+  -->
 </body>
 
 </html>
